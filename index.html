@@ -56,8 +56,8 @@
      --hero-shift  文案往上挪多少（越负，文字越靠上、给主体让出的空间越大）
      原参考站是 17% / -20%；当前这条素材主体偏中央，20% / -14% 是
      「人物看得清」和「文字读得清」的平衡点。 */
-  --video-shift:20%;
-  --hero-shift:-14%;
+  --video-shift:2%;
+  --hero-shift:-9%;
 }
 
 *,*::before,*::after{box-sizing:border-box;}
@@ -324,8 +324,8 @@ button,input{font:inherit;color:inherit;}
   transform:translateY(calc(var(--hero-shift) + var(--px,0px)));
 }
 /* 矮屏（笔记本 / 浏览器带书签栏）：收掉上移量，避免标题顶到导航 */
-@media (max-height:820px){ :root{--hero-shift:-8%;  --video-shift:26%;} }
-@media (max-height:700px){ :root{--hero-shift:-2%;  --video-shift:32%;} }
+@media (max-height:820px){ :root{--hero-shift:-6%;  --video-shift:8%;} }
+@media (max-height:700px){ :root{--hero-shift:-2%;  --video-shift:14%;} }
 .hero-h1{
   font-family:var(--font-display);
   font-weight:200;
@@ -1114,7 +1114,9 @@ footer.foot{
     ph.style.display = 'none';
     if (phNote) phNote.style.display = 'none';   /* 占位说明一并隐藏 */
     if (POSTER_SRC) v.setAttribute('poster', POSTER_SRC);
-    v.src = VIDEO_SRC;
+    /* 注意：src 必须在所有监听器挂好之后再设置。
+       本地文件加载极快，先设 src 会让 loadeddata 在监听器挂上之前就触发，
+       淡入永远不会执行，首屏就是一片黑。 */
 
     /* ---- 自定义淡入淡出（纯 JS，不使用 CSS transition） ---- */
     var FADE_MS   = 500;
@@ -1147,29 +1149,84 @@ footer.foot{
     }
 
     v.addEventListener('loadeddata', startCycle);
-    v.addEventListener('canplay', function(){ v.play().catch(function(){}); });
+    v.addEventListener('canplay', function(){ startCycle(); tryPlay(); });
 
-    v.addEventListener('timeupdate', function(){
-      if (fadingOut) return;                       // 防止重复触发
-      var d = v.duration;
-      if (!isFinite(d) || d <= 0) return;
-      if (d - v.currentTime <= FADE_LEAD) {
-        fadingOut = true;
-        fadeTo(0, FADE_MS);
+    /* 自动播放被拒时的兜底：先把画面显示出来（至少是 poster），
+       再等用户任意一次交互后补上播放，绝不留一片黑。 */
+    function tryPlay(){
+      var pr = v.play();
+      if (pr && typeof pr.catch === 'function'){
+        pr.catch(function(){
+          startCycle();                       // 播不了也要让画面可见
+          var resume = function(){
+            v.play().catch(function(){});
+            window.removeEventListener('pointerdown', resume);
+            window.removeEventListener('keydown', resume);
+            window.removeEventListener('touchstart', resume);
+          };
+          window.addEventListener('pointerdown', resume, { once:true });
+          window.addEventListener('keydown',     resume, { once:true });
+          window.addEventListener('touchstart',  resume, { once:true });
+        });
       }
+    }
+
+    v.addEventListener('error', function(){
+      /* 视频文件缺失/损坏时，退回占位块，而不是留一片黑 */
+      v.style.display = 'none';
+      ph.style.display = '';
+      if (phNote) phNote.style.display = '';
     });
 
-    v.addEventListener('ended', function(){
-      cancelFade();
-      v.style.opacity = '0';
-      setTimeout(function(){
-        v.currentTime = 0;
-        v.play().catch(function(){});
-        startCycle();
-      }, 100);
+    /* 原生循环：这是画面永不停的底线。
+       之前靠 'ended' 事件手动重播，而开了原生 loop 后 ended 根本不会触发；
+       不开 loop 时 ended 又可能被浏览器吞掉，视频就停在最后一帧变成静止图。 */
+    v.loop = true;
+
+    /* 淡入淡出改用 rAF 轮询 currentTime 驱动，不依赖 timeupdate。
+       timeupdate 只有约 4 次/秒且在后台标签页会被节流，
+       0.55 秒的淡出窗口很容易整个被跳过。 */
+    var lastTime = 0;
+    var tickId   = null;
+
+    function tick(){
+      var d = v.duration;
+      if (isFinite(d) && d > 0 && !v.paused){
+        var ct = v.currentTime;
+
+        /* 时间倒退 = 刚刚循环回开头，开始淡入 */
+        if (ct < lastTime - 0.2){
+          fadingOut = false;
+          fadeTo(1, FADE_MS);
+        }
+        /* 距结尾不足 0.55 秒，开始淡出（接缝被淡黑掩盖） */
+        else if (!fadingOut && d - ct <= FADE_LEAD){
+          fadingOut = true;
+          fadeTo(0, FADE_MS);
+        }
+        lastTime = ct;
+      }
+      tickId = requestAnimationFrame(tick);
+    }
+    tickId = requestAnimationFrame(tick);
+
+    /* 标签页切回来时补一次播放，避免被系统暂停后再也不动 */
+    document.addEventListener('visibilitychange', function(){
+      if (!document.hidden && v.paused) v.play().catch(function(){});
     });
 
-    v.play().catch(function(){});                  // 部分浏览器需要显式触发
+    /* 监听器全部挂好之后才设置 src —— 顺序不能颠倒 */
+    v.src = VIDEO_SRC;
+    v.load();
+
+    /* 若 src 设置时已经有数据（缓存命中），事件可能不会再触发，手动补一次 */
+    if (v.readyState >= 2) startCycle();
+    tryPlay();
+
+    /* 最后一道保险：1.5 秒后画面仍然全透明就强制显示 */
+    setTimeout(function(){
+      if (parseFloat(v.style.opacity || '0') === 0 && v.readyState >= 1) startCycle();
+    }, 1500);
   } else {
     v.style.display = 'none';
   }
