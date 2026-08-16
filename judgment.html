@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>马可 - 模型的输出是概率的，产品的体验必须是确定的</title>
-<meta name="description" content="马可，AI 产品经理。中国传媒大学动画专业，做过 IP 设计与动画交付。我更关心 AI 产品在哪里会出错——这里有我对 AI 产品的判断、拆解与实践。">
+<title>马可 - 我更关心 AI 产品在哪里会出错</title>
+<meta name="description" content="马可的三条 AI 产品判断：什么时候不该用大模型、上线前必须定义的失败态、AI 产品真正的竞争力在哪。">
 <meta name="theme-color" content="#000000">
 <meta name="color-scheme" content="dark">
 <meta property="og:type" content="website">
-<meta property="og:title" content="马可 - 模型的输出是概率的，产品的体验必须是确定的">
-<meta property="og:description" content="马可，AI 产品经理。中国传媒大学动画专业，做过 IP 设计与动画交付。我更关心 AI 产品在哪里会出错——这里有我对 AI 产品的判断、拆解与实践。">
+<meta property="og:title" content="马可 - 我更关心 AI 产品在哪里会出错">
+<meta property="og:description" content="马可的三条 AI 产品判断：什么时候不该用大模型、上线前必须定义的失败态、AI 产品真正的竞争力在哪。">
 <meta property="og:locale" content="zh_CN">
 <style>
 /* ═══════════════════════════════════════════════════════════════
@@ -1069,21 +1069,21 @@ a.proj-card:hover .go svg{transform:translateX(3px);}
 <header class="nav" id="nav">
   <nav class="nav-inner liquid-glass" aria-label="主导航">
     <div class="nav-left">
-      <a href="#top" class="brand">马可</a>
+      <a href="index.html" class="brand">马可</a>
       <div class="nav-links">
-        <a href="judgment.html">判断</a>
+        <a href="judgment.html" class="current">判断</a>
         <a href="teardown.html">拆解</a>
         <a href="practice.html">实践</a>
         <a href="about.html">关于</a>
       </div>
     </div>
     <div class="nav-right">
-      <a href="#contact" class="btn-contact liquid-glass">联系我</a>
+      <a href="index.html#contact" class="btn-contact liquid-glass">联系我</a>
       <button class="menu-btn" id="menuBtn" aria-label="打开菜单" aria-expanded="false"><span></span></button>
     </div>
   </nav>
   <div class="mobile-menu liquid-glass" id="mobileMenu">
-    <a href="judgment.html">判断</a>
+    <a href="judgment.html" class="current">判断</a>
     <a href="teardown.html">拆解</a>
     <a href="practice.html">实践</a>
     <a href="about.html">关于</a>
@@ -1091,123 +1091,59 @@ a.proj-card:hover .go svg{transform:translateX(3px);}
 </header>
 
 <div class="page" id="top">
-
-<section id="hero">
-    <div class="hero-body">
-      <h1 class="hero-h1">
-        <span class="l1">模型的输出是概率的，</span><span class="l2">产品的体验必须是确定的</span>
-      </h1>
-      <p class="hero-sub">我的工作，是这中间那段距离。</p>
-      <p class="hero-id">产品经理 ｜ 中国传媒大学动画专业 ｜ 做过 IP 设计与动画交付</p>
-      <a href="judgment.html" class="btn-manifesto liquid-glass">
-        我怎么看 AI 产品
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-    </div>
-
-    <div class="hero-foot">
-      <div class="hero-peek">01 &nbsp;—&nbsp; <b>我怎么看 AI 产品</b></div>
-      <svg class="scroll-cue" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
-    </div>
-
-    <div class="hero-fade"></div>
-  </section>
+  <header class="page-head">
+    <span class="sec-num">01</span>
+    <h1>我怎么看 AI 产品</h1>
+    <p class="lead">三条判断。它们决定了我怎么选需求、怎么定验收标准、以及什么时候我会说不做。</p>
+  </header>
 
   <div class="content">
+<section class="block" id="judgment">
+      <div class="stack">
 
-    <!-- ══════════ 01 判断（引导，全文在 judgment.html）══════════ -->
-    <section class="block" id="judgment">
-      <div class="sec-head reveal">
-        <span class="sec-num">01</span>
-        <h2 class="sec-title">我怎么看 AI 产品</h2>
-      </div>
-      <div class="teaser reveal">
-        <p class="pull todo">
-          这里放三条判断里最有力的那一句（或半句）。它是整个首页的钩子，
-          必须是结论式的一句话，不要设问、不要铺垫。
-        </p>
-        <a class="more liquid-glass" href="judgment.html">读完三条判断 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        <article class="card liquid-glass on-black reveal">
+          <span class="card-kicker">判断 一</span>
+          <p class="claim todo">
+            主张写在这里（一句话，结论式，不要设问）。建议主题：什么情况下我会劝团队别用大模型。
+          </p>
+          <div class="todo">
+            展开 2–3 句：这条判断从哪来 → 它在什么场景下成立 → 反过来会付出什么代价。
+            全站最重要的一块，写不扎实，首屏那句话会反噬。
+          </div>
+        </article>
+
+        <article class="card liquid-glass on-black reveal">
+          <span class="card-kicker">判断 二</span>
+          <p class="claim todo">
+            主张写在这里。建议主题：AI 功能上线前必须先定义失败态。
+          </p>
+          <div class="todo">
+            展开 2–3 句。这一条如果能拆成一份清单（例如「我判断一个需求该不该用大模型的 5 个问题」），
+            就把下面那块占位换成有序列表，做出与另外两条的层次差异。
+          </div>
+        </article>
+
+        <article class="card liquid-glass on-black reveal">
+          <span class="card-kicker">判断 三</span>
+          <p class="claim todo">
+            主张写在这里。建议主题：AI 产品真正的竞争力不在模型选型，在哪里。
+          </p>
+          <div class="todo">
+            展开 2–3 句。这一条最适合承接首屏「概率 → 确定性」那句话，形成呼应。
+          </div>
+        </article>
+
       </div>
     </section>
+  </div>
 
-    <!-- ══════════ 02 精选项目（拆解 + 实践 合并预览）══════════ -->
-    <section class="block" id="work">
-      <div class="sec-head reveal">
-        <span class="sec-num">02</span>
-        <h2 class="sec-title">精选项目</h2>
-        <p class="sec-lead">拆过的产品，和自己做过的东西。每一件都对应「判断」里的某一条。</p>
-      </div>
-      <div class="proj-grid">
-      <a class="proj-card liquid-glass on-black reveal" href="teardown.html">
-        <span class="card-kicker">拆解 · C 端</span>
-        <p class="name todo">产品名称</p>
-        <p class="result todo">一句话说清结论：它做对/做错了什么，换成我会怎么改。</p>
-        <span class="go">查看拆解 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
-      </a>
-      <a class="proj-card liquid-glass on-black reveal" href="teardown.html">
-        <span class="card-kicker">拆解 · B 端</span>
-        <p class="name todo">产品名称</p>
-        <p class="result todo">一句话说清结论。</p>
-        <span class="go">查看拆解 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
-      </a>
-      <a class="proj-card liquid-glass on-black reveal" href="practice.html">
-        <span class="card-kicker">实践 一</span>
-        <p class="name todo">项目名称</p>
-        <p class="result todo">一句话说清结果：解决了什么问题、达到了什么效果。</p>
-        <span class="go">查看实践 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
-      </a>
-      <a class="proj-card liquid-glass on-black reveal" href="practice.html">
-        <span class="card-kicker">实践 二</span>
-        <p class="name todo">项目名称</p>
-        <p class="result todo">一句话说清结果。</p>
-        <span class="go">查看实践 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
-      </a>
-      </div>
-    </section>
-
-    <!-- ══════════ 03 关于（引导，全文在 about.html）══════════ -->
-    <section class="block" id="about">
-      <div class="sec-head reveal">
-        <span class="sec-num">03</span>
-        <h2 class="sec-title">关于我</h2>
-      </div>
-      <div class="teaser reveal">
-        <p class="pull todo">
-          2–3 句极简引导。建议用「我做过一年 IP 设计——那和定义一个 AI 的行为边界，
-          是同一件事」这类能立刻勾住人的句子开头，剩下的展开留给 about.html。
-        </p>
-        <a class="more liquid-glass" href="about.html">读完整篇 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
-      </div>
-    </section>
-
-<section class="block" id="contact">
-      <div class="sec-head reveal">
-        <span class="sec-num">04</span>
-        <h2 class="sec-title">联系</h2>
-      </div>
-
-      <div class="contact-wrap reveal">
-        <p class="body todo">
-          一句直白的意向，说清你在找什么。例如：我在找 AI 产品经理的岗位，C 端 B 端都可以聊；
-          也欢迎同行交流。——必须直说，不要让对方自己猜。
-        </p>
-
-        <div class="mailbar liquid-glass on-black">
-          <span class="addr" id="mailAddr">make062402@gmail.com</span>
-          <button class="copy-btn" id="copyBtn" aria-label="复制邮箱地址">
-            <svg id="iconCopy" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-            <svg id="iconDone" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-          </button>
-        </div>
-        <p class="copy-hint" id="copyHint" role="status" aria-live="polite"></p>
-      </div>
-    </section>
-
-  </div><!-- /.content -->
+  <nav class="pager reveal" aria-label="页面导航">
+  <div class="side"><a href="index.html"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg> 回首页</a></div>
+  <div class="side"><a href="teardown.html">拆解 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></div>
+</nav>
 
   <footer class="foot">© 2026 马可</footer>
-
-</div><!-- /.page -->
+</div>
 
 <script>
 (function(){
